@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction à la Modélisation Prédictive</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="header-badge">CNAM · EPN05 · Laboratoire CEDRIC</div>
+    <h1>Introduction à la <span>Modélisation Prédictive</span></h1>
+    <div class="header-meta">
+      <div><strong>Auteur :</strong> Mouhamadou Lamine NDAO</div>
+      <div><strong>Contact :</strong> mouhamadou.ndao@lecnam.net</div>
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR TOGGLE (mobile) -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Ouvrir le menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- SIDEBAR NAV -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span>NFE212</span>
+    <span class="sidebar-course">Modélisation Prédictive · CNAM EPN05</span>
+  </div>
+  <ul class="sidebar-nav">
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#intro">
+        <span class="sidebar-num">01</span>
+        <span class="sidebar-label">Introduction</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#intro-terminologie">Terminologie de base</a></li>
+        <li><a class="sidebar-sublink" href="#intro-variables">Typologie des variables</a></li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#types">
+        <span class="sidebar-num">02</span>
+        <span class="sidebar-label">Types de problèmes</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#types-nonsupervise">Méthodes non supervisées</a></li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#analyse">
+        <span class="sidebar-num">03</span>
+        <span class="sidebar-label">Analyse prédictive</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#analyse-lineaire">Modèle linéaire</a></li>
+        <li><a class="sidebar-sublink" href="#analyse-logistique">Classification logistique</a></li>
+        <li><a class="sidebar-sublink" href="#analyse-donnees">Problèmes liés aux données</a></li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#modelisation">
+        <span class="sidebar-num">04</span>
+        <span class="sidebar-label">Construction d'un modèle</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#modelisation-criteres">Critères de choix</a></li>
+        <li><a class="sidebar-sublink" href="#modelisation-etapes">Étapes générales</a></li>
+        <li><a class="sidebar-sublink" href="#modelisation-clf">Métriques — Classification</a></li>
+        <li><a class="sidebar-sublink" href="#modelisation-reg">Métriques — Régression</a></li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#apprentissage">
+        <span class="sidebar-num">05</span>
+        <span class="sidebar-label">Apprentissage &amp; Validation</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#apprentissage-partition">Partitionnement</a></li>
+        <li><a class="sidebar-sublink" href="#apprentissage-cv">Validation croisée</a></li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#evaluation">
+        <span class="sidebar-num">06</span>
+        <span class="sidebar-label">Biais &amp; Variance</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#evaluation-regularisation">Régularisation</a></li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item has-sub">
+      <button class="sidebar-link" data-href="#references">
+        <span class="sidebar-num">07</span>
+        <span class="sidebar-label">Références</span>
+        <span class="sidebar-chevron">▾</span>
+      </button>
+      <ul class="sidebar-sub">
+        <li><a class="sidebar-sublink" href="#references-cours">Cours &amp; tutoriels</a></li>
+        <li><a class="sidebar-sublink" href="#references-livres">Ouvrages de référence</a></li>
+        <li><a class="sidebar-sublink" href="#references-outils">Outils &amp; librairies</a></li>
+      </ul>
+    </li>
+
+  </ul>
+</nav>
+
+<!-- RIGHT TOC -->
+<aside class="toc" id="toc">
+  <div class="toc-title">Sur cette page</div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#intro">01 · Introduction</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#intro-terminologie">Terminologie de base</a></li>
+      <li><a class="toc-sublink" href="#intro-variables">Typologie des variables</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#types">02 · Types de problèmes</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#types-nonsupervise">Méthodes non supervisées</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#analyse">03 · Analyse prédictive</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#analyse-lineaire">Modèle linéaire</a></li>
+      <li><a class="toc-sublink" href="#analyse-logistique">Classification logistique</a></li>
+      <li><a class="toc-sublink" href="#analyse-donnees">Problèmes liés aux données</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#modelisation">04 · Construction d'un modèle</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#modelisation-criteres">Critères de choix</a></li>
+      <li><a class="toc-sublink" href="#modelisation-etapes">Étapes générales</a></li>
+      <li><a class="toc-sublink" href="#modelisation-clf">Métriques — Classification</a></li>
+      <li><a class="toc-sublink" href="#modelisation-reg">Métriques — Régression</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#apprentissage">05 · Apprentissage</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#apprentissage-partition">Partitionnement</a></li>
+      <li><a class="toc-sublink" href="#apprentissage-cv">Validation croisée</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#evaluation">06 · Biais &amp; Variance</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#evaluation-regularisation">Régularisation</a></li>
+    </ul>
+  </div>
+
+  <div class="toc-section">
+    <a class="toc-section-link" href="#references">07 · Références</a>
+    <ul class="toc-sub">
+      <li><a class="toc-sublink" href="#references-cours">Cours &amp; tutoriels</a></li>
+      <li><a class="toc-sublink" href="#references-livres">Ouvrages</a></li>
+      <li><a class="toc-sublink" href="#references-outils">Outils</a></li>
+    </ul>
+  </div>
+</aside>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════ 1. INTRODUCTION -->
+<section class="section" id="intro">
+  <div class="section-label">Section 01</div>
+  <h2>Introduction — Science des données</h2>
+
+  <p>Les données sont omniprésentes : radiographies médicales, cours boursiers, images satellites, profils clients… Mais une donnée brute ne vaut rien sans la capacité à en extraire du sens. C'est précisément l'objet de la <strong>science des données</strong>.</p>
+
+  <div class="card red">
+    <div class="card-title">Définition</div>
+    <p>Un concept visant à <strong>unifier les domaines scientifiques</strong> permettant d'extraire de l'information d'un ensemble de données.</p>
+    <p style="color:var(--muted);font-size:13px;">Notions liées : statistique, algorithmique, mathématique, informatique, bases de données.</p>
+  </div>
+
+  <div class="info-box">
+    <strong>À quelles fins ?</strong> Selon l'objectif visé, on distingue quatre grands usages :
+    <ul style="margin-top:6px">
+      <li><strong>Comprendre</strong> — décrire et résumer les données (ex. : quels sont les profils des patients ?)</li>
+      <li><strong>Expliquer</strong> — identifier les facteurs qui influencent un résultat (ex. : pourquoi certains patients décèdent-ils ?)</li>
+      <li><strong>Prévoir</strong> — prédire l'issue pour de nouvelles observations (ex. : ce patient survivra-t-il ?)</li>
+      <li><strong>Visualiser</strong> — représenter graphiquement des structures cachées (ex. : profils immunitaires)</li>
+    </ul>
+  </div>
+
+  <figure class="img-figure">
+    <div class="img-group">
+      <img class="img-third" src="assets/images/xray_example.png" alt="Radiographie">
+      <img class="img-third" src="assets/images/stock_example.png" alt="Cours boursiers">
+      <img class="img-third" src="assets/images/detection.png" alt="Détection d'objets">
+    </div>
+    <figcaption>Exemples de données : imagerie médicale, séries temporelles, détection d'objets</figcaption>
+  </figure>
+
+  <div class="grid-2">
+    <div class="card dark">
+      <div class="card-title">Formes de données</div>
+      <ul>
+        <li>Tableau structuré</li>
+        <li>Texte / langage naturel</li>
+        <li>Image, vidéo, audio</li>
+        <li>Séries temporelles</li>
+      </ul>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Les 5V des données</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+        <span class="tag">Variété</span>
+        <span class="tag">Véracité</span>
+        <span class="tag">Volume</span>
+        <span class="tag">Vélocité</span>
+        <span class="tag">Valeur</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="intro-terminologie">Terminologie de base</h3>
+  <p style="font-size:14px;color:var(--muted)">Avant d'aller plus loin, quelques termes fondamentaux partagés par toutes les méthodes d'analyse de données :</p>
+  <table>
+    <thead><tr><th>Terme</th><th>Définition</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Population</strong></td><td>Groupe d'individus soumis à une étude</td></tr>
+      <tr><td><strong>Individu</strong></td><td>Élément issu de la population (observation)</td></tr>
+      <tr><td><strong>Échantillon</strong></td><td>Partie d'une population</td></tr>
+      <tr><td><strong>Variable</strong></td><td>Caractère observé sur chaque individu</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="intro-variables">Typologie des variables</h3>
+  <p style="font-size:14px;color:var(--muted)">La nature d'une variable détermine les opérations statistiques applicables et le type de visualisation approprié.</p>
+  <div class="grid-2">
+    <div class="card orange">
+      <div class="card-title">Variable qualitative</div>
+      <p>Valeurs non numériques — la moyenne n'a pas de sens.</p>
+      <ul>
+        <li><strong>Nominale</strong> (catégorielle) : pas d'ordre entre les modalités</li>
+        <li><strong>Ordinale</strong> : existence d'un ordre total</li>
+      </ul>
+    </div>
+    <div class="card green">
+      <div class="card-title">Variable quantitative</div>
+      <p>Valeurs numériques — la moyenne a un sens.</p>
+      <ul>
+        <li><strong>Continue</strong> : à valeurs dans un intervalle réel</li>
+        <li><strong>Discrète</strong> : sinon (valeurs isolées)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="anim-block">
+    <div class="anim-title">Animation — Représentation selon le type de variable</div>
+    <div class="anim-controls">
+      <button class="anim-btn active" id="btn-vt-quanti">Variable quantitative</button>
+      <button class="anim-btn" id="btn-vt-quali">Variable qualitative</button>
+    </div>
+    <canvas class="anim-canvas" id="anim-vartype-canvas"></canvas>
+    <p style="font-size:12px;color:var(--muted);margin-top:6px">Cliquez sur un type pour voir la représentation graphique adaptée.</p>
+  </div>
+
+  <div class="anim-block">
+    <div class="anim-title">Guide — Quel graphique selon le type de variable ?</div>
+    <div class="chart-guide-context" id="chart-guide-context"></div>
+    <div class="chart-guide-tabs">
+      <button class="anim-btn active" data-cg-tab="univ-q">Quantitative seule</button>
+      <button class="anim-btn"        data-cg-tab="univ-ql">Qualitative seule</button>
+      <button class="anim-btn"        data-cg-tab="qq">Quanti × Quanti</button>
+      <button class="anim-btn"        data-cg-tab="qlq">Quali × Quanti</button>
+      <button class="anim-btn"        data-cg-tab="qlql">Quali × Quali</button>
+    </div>
+    <div class="chart-cards" id="chart-guide-cards"></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:0.8rem">Sélectionnez une combinaison de types pour voir les représentations graphiques adaptées et leur usage.</p>
+  </div>
+
+  <figure class="img-figure">
+    <div class="img-group">
+      <img class="img-half" src="assets/images/quanti_representation.png" alt="Distribution du salaire moyen — variable quantitative">
+      <img class="img-half" src="assets/images/quali.png" alt="Représentation d'une variable qualitative">
+    </div>
+    <figcaption>Distribution d'une variable quantitative (salaire) et représentation d'une variable qualitative</figcaption>
+  </figure>
+
+  <p style="font-size:14px;color:var(--muted);margin-top:0.8rem">L'analyse des <strong>relations entre variables</strong> est au cœur de toute démarche prédictive. Deux variables quantitatives peuvent être liées par une corrélation (nuage de points) ; une variable qualitative et une quantitative se comparent par des boîtes à moustaches ou des distributions par groupe.</p>
+
+  <figure class="img-figure">
+    <div class="img-group">
+      <img class="img-half" src="assets/images/relation.png" alt="Relation entre deux variables quantitatives">
+      <img class="img-half" src="assets/images/quali_quanti.png" alt="Relation quali–quanti et quali–quali">
+    </div>
+    <figcaption>Relations entre variables : quanti/quanti (gauche) ; quali/quanti et quali/quali (droite)</figcaption>
+  </figure>
+</section>
+
+<!-- ═══════════════════════════════════════════════ 2. TYPES DE PROBLÈMES -->
+<section class="section" id="types">
+  <div class="section-label">Section 02</div>
+  <h2>Types de problèmes</h2>
+
+  <p>La première question à se poser face à un jeu de données est : <em>cherche-t-on à prédire une variable cible, ou à explorer librement la structure des données ?</em> La réponse oriente le choix de la famille de méthodes.</p>
+
+  <div class="grid-2">
+    <div class="card red">
+      <div class="card-title">Méthodes Supervisées</div>
+      <p>On cherche à prédire ou expliquer une variable cible.</p>
+      <ul>
+        <li><strong>Régression</strong> — variable cible quantitative</li>
+        <li><strong>Classification</strong> — variable cible qualitative</li>
+        <li>Méthodes paramétriques ou non paramétriques</li>
+      </ul>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Méthodes Non Supervisées</div>
+      <p>Pas de variable cible — on cherche une structure latente.</p>
+      <ul>
+        <li><strong>Analyse factorielle</strong> (ACP, AFC, ACM)</li>
+        <li><strong>Clustering</strong> (k-means, CAH…)</li>
+        <li><strong>Règles d'association</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 id="types-nonsupervise">Les méthodes non supervisées en détail</h3>
+  <p style="font-size:14px;color:var(--muted)">En l'absence de variable cible, on cherche une <strong>structure latente</strong> dans les données. Trois grandes familles coexistent :</p>
+  <div class="grid-3" style="margin-bottom:1.2rem">
+    <div class="card dark">
+      <div class="card-title">Analyse factorielle</div>
+      <p style="font-size:13px">Approches géométriques : projeter les données en dimension 2 pour en faire une représentation synthétique.</p>
+      <ul style="font-size:13px">
+        <li><strong>ACP</strong> : données quantitatives</li>
+        <li><strong>AFC</strong> : deux variables qualitatives</li>
+        <li><strong>ACM</strong> : plusieurs variables qualitatives</li>
+      </ul>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Clustering</div>
+      <p style="font-size:13px">Regrouper les individus en classes homogènes (k défini à l'avance).</p>
+      <ul style="font-size:13px">
+        <li><strong>k-means</strong>, nuées dynamiques</li>
+        <li>Classification hiérarchique ascendante (CAH)</li>
+        <li>Modèles de mélange (EM)</li>
+      </ul>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Règles d'association</div>
+      <p style="font-size:13px">Extraire des co-occurrences significatives entre descripteurs.</p>
+      <ul style="font-size:13px">
+        <li>Probabilités d'achats simultanés</li>
+        <li>Difficulté : explosion combinatoire</li>
+        <li>Ex. : achat d'un polar → recommandation ciblée</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <div class="card orange">
+      <div class="card-title">Description &amp; Visualisation</div>
+      <p>Résumer les données sous une forme intelligible.</p>
+      <p style="color:var(--muted);font-size:13px;font-style:italic;">Ex : moyenne d'âge des patients présentant un cancer du sein.</p>
+    </div>
+    <div class="card green">
+      <div class="card-title">Association</div>
+      <p>Trouver les ensembles de descripteurs les plus corrélés.</p>
+      <p style="color:var(--muted);font-size:13px;font-style:italic;">Ex : les acheteurs de poivre achètent aussi du sel.</p>
+    </div>
+  </div>
+
+  <div class="alert" style="margin-top:1.2rem">
+    <strong>Les méthodes sont le plus souvent complémentaires !</strong> Description, explication, prédiction et association s'articulent dans une démarche d'analyse globale.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ 3. ANALYSE PRÉDICTIVE -->
+<section class="section" id="analyse">
+  <div class="section-label">Section 03</div>
+  <h2>Analyse prédictive</h2>
+
+  <p>Comment décider d'accorder ou non un prêt ? Comment détecter une tumeur sur une radiographie ? Ces problèmes ont en commun de nécessiter une <strong>règle de prédiction apprise à partir de données historiques</strong>, plutôt que construite analytiquement. On parle d'<em>apprentissage supervisé</em> : on dispose d'observations pour lesquelles les variables explicatives <em>et</em> la variable à prédire sont connues.</p>
+
+  <div class="grid-2">
+    <div class="card red">
+      <div class="card-title">Classification (discrimination)</div>
+      <p>La variable expliquée est <strong>nominale</strong> — chaque observation appartient à une classe.</p>
+      <p style="color:var(--muted);font-size:13px;font-style:italic;">Ex : le prêt sera remboursé ou non ; détection d'objet dans une image.</p>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Régression</div>
+      <p>La variable expliquée est <strong>quantitative</strong> (∈ ℝ).</p>
+      <p style="color:var(--muted);font-size:13px;font-style:italic;">Ex : densité de trafic, volume de ventes, cours d'un actif.</p>
+    </div>
+  </div>
+
+  <h3 id="analyse-lineaire">Modèle linéaire — Principe et notations</h3>
+  <p style="font-size:14px;color:var(--muted)">Le modèle linéaire est la brique de base de la modélisation prédictive. L'idée est simple : <strong>prédire en calculant une somme pondérée des variables d'entrée</strong>, augmentée d'un terme constant. Trouver le bon modèle revient à trouver les bons poids θ.</p>
+  <div class="card red">
+    <div class="card-title">Équation scalaire</div>
+    <div class="formula">ŷ = θ₀ + θ₁x₁ + θ₂x₂ + … + θₚxₚ</div>
+    <ul style="font-size:13px">
+      <li><strong>ŷ</strong> : valeur prédite</li>
+      <li><strong>θ₀</strong> : terme constant (biais / intercept)</li>
+      <li><strong>θⱼ</strong> : coefficient de pondération (poids)</li>
+      <li><strong>xⱼ</strong> : valeur de la j-ème variable d'entrée</li>
+    </ul>
+    <div style="margin-top:0.8rem">
+      <div class="formula">Forme vectorielle : ŷ = h_θ(x) = θᵀ · x</div>
+      <div class="formula">Forme matricielle : ŷ = Xθ</div>
+    </div>
+    <div class="alert" style="margin-top:0.8rem">
+      <strong>Objectif de l'apprentissage :</strong> trouver θ = (θ₀, θ₁, …, θₙ) qui <em>minimise l'erreur</em> sur les données d'entraînement.
+    </div>
+  </div>
+
+  <figure class="img-figure">
+    <div class="img-group">
+      <img class="img-third" src="assets/images/reg1.png" alt="Régression linéaire 1">
+      <img class="img-third" src="assets/images/reg2.png" alt="Régression linéaire 2">
+      <img class="img-third" src="assets/images/reg3.png" alt="Régression linéaire 3">
+    </div>
+    <figcaption>Exemples de modèles de régression — taux de garantie (x) vs taux de remboursement (y)</figcaption>
+  </figure>
+
+  <h3 id="analyse-logistique">Classification logistique — Étapes</h3>
+  <p style="font-size:14px;color:var(--muted)">Pour un problème de classification binaire (ex. : accorder ou refuser un prêt), la <strong>régression logistique</strong> adapte le modèle linéaire en trois étapes : calcul d'un score, transformation en probabilité via la fonction sigmoïde, puis règle de décision par seuil.</p>
+  <div class="card orange" style="padding:1.5rem 1.8rem">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Score linéaire</strong>
+          <div class="formula">z = θ₀ + θ₁·Age + θ₂·Garantie</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Transformation sigmoïde</strong>
+          <div class="formula">p̂ = σ(z) = 1 / (1 + e⁻ᶻ) ∈ ]0,1[</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Décision</strong>
+          <div class="formula">ŷ = 1 (Refus) si p̂ ≥ 0.5, sinon ŷ = 0 (Accord)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="anim-block">
+    <div class="anim-title">Animation — Sigmoid : du score linéaire à la probabilité</div>
+    <div class="anim-controls">
+      <div class="slider-row" style="flex:1;min-width:220px">
+        <span>z =</span>
+        <input type="range" id="anim-sigmoid-z" min="-7" max="7" step="0.1" value="0">
+        <span class="slider-val" id="anim-sigmoid-zval">0.00</span>
+      </div>
+    </div>
+    <canvas class="anim-canvas" id="anim-sigmoid-canvas"></canvas>
+    <div class="anim-info">
+      <div class="anim-stat">Probabilité p̂ <strong id="anim-sigmoid-prob">50.0%</strong></div>
+      <div class="anim-stat">Décision <strong id="anim-sigmoid-dec">—</strong></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:6px">Déplacez le curseur pour voir comment la fonction sigmoïde transforme le score z en probabilité, et comment le seuil 0.5 détermine la décision.</p>
+  </div>
+
+  <figure class="img-figure" style="margin-top:1.2rem">
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:4px;">Frontières simples</p>
+    <div class="img-group">
+      <img class="img-third" src="assets/images/classif1.png" alt="Frontière de classification 1">
+      <img class="img-third" src="assets/images/classif2.png" alt="Frontière de classification 2">
+      <img class="img-third" src="assets/images/classif3.png" alt="Frontière de classification 3">
+    </div>
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:4px;margin-top:0.6rem">Frontières plus complexes</p>
+    <div class="img-group">
+      <img class="img-third" src="assets/images/model1.png" alt="Modèle de classification 1">
+      <img class="img-third" src="assets/images/model2.png" alt="Modèle de classification 2">
+      <img class="img-third" src="assets/images/model3.png" alt="Modèle de classification 3">
+    </div>
+    <figcaption>Exemples de frontières de décision — la complexité de la frontière dépend de la complexité du modèle</figcaption>
+  </figure>
+
+  <div class="anim-block">
+    <div class="anim-title">Animation — Complexité de la frontière &amp; compromis biais-variance</div>
+    <div class="anim-controls">
+      <div class="slider-row" style="flex:1;min-width:240px">
+        <span>Complexité</span>
+        <input type="range" id="anim-boundary-slider" min="1" max="5" step="1" value="1">
+        <span class="slider-val" id="anim-boundary-lbl">1</span>
+      </div>
+      <span style="font-size:12px;color:var(--muted)">1 = très simple → 5 = très complexe</span>
+    </div>
+    <canvas class="anim-canvas" id="anim-boundary-canvas"></canvas>
+    <p style="font-size:12px;color:var(--muted);margin-top:6px">Faites glisser le curseur et observez comment la frontière évolue, et l'effet sur les erreurs d'entraînement et de test (barres en bas à droite).</p>
+  </div>
+
+  <h3 id="analyse-donnees">Problèmes liés aux données</h3>
+  <p style="font-size:14px;color:var(--muted)">Un modèle n'est jamais meilleur que les données qui l'alimentent — <em>garbage in, garbage out</em>. Plusieurs pathologies courantes dégradent les performances ou biaisent les résultats. Les identifier et les traiter est une étape incontournable avant tout apprentissage.</p>
+  <div class="grid-2">
+    <div class="card red">
+      <div class="card-title">Données aberrantes (outliers)</div>
+      <p>Données éloignées des autres ou de leur classe. Peuvent être des erreurs de mesure ou un phénomène significatif.</p>
+      <p>→ Détecter et corriger s'il s'agit d'erreurs ; modéliser si c'est un phénomène réel.</p>
+      <figure class="img-figure"><img class="img-wide" src="assets/images/outlier.png" alt="Données aberrantes"></figure>
+    </div>
+    <div class="card red">
+      <div class="card-title">Données manquantes</div>
+      <p>Valeurs absentes pour certaines variables.</p>
+      <p>→ Ignorer les observations incomplètes ou <strong>imputer</strong> les valeurs manquantes.</p>
+      <figure class="img-figure"><img class="img-wide" src="assets/images/missing_data_.png" alt="Données manquantes"></figure>
+    </div>
+    <div class="card orange">
+      <div class="card-title">Données non représentatives</div>
+      <p>Certains domaines très peu couverts par les observations étiquetées.</p>
+      <p>→ Compléter la collecte ; en attendant, limiter l'usage au domaine couvert.</p>
+      <figure class="img-figure"><img class="img-wide" src="assets/images/non_representative.png" alt="Données non représentatives"></figure>
+    </div>
+    <div class="card orange">
+      <div class="card-title">Classes déséquilibrées</div>
+      <p>Une classe contient nettement moins d'observations que l'autre.</p>
+      <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px">
+        <span class="tag orange">Surpondération</span>
+        <span class="tag orange">Sous-échantillonnage</span>
+        <span class="tag orange">SMOTE</span>
+        <span class="tag orange">Détection d'anomalies</span>
+      </div>
+      <figure class="img-figure" style="margin-top:0.8rem"><img class="img-wide" src="assets/images/imbalance.png" alt="Classes déséquilibrées"></figure>
+    </div>
+  </div>
+
+  <figure class="img-figure">
+    <div class="img-group">
+      <img class="img-half" src="assets/images/bad_data.png" alt="Données inadaptées">
+      <img class="img-half" src="assets/images/paradoxe_simson.png" alt="Paradoxe de Simpson">
+    </div>
+    <figcaption>Données non informatives (gauche) — modèle inadapté, paradoxe de Simpson (droite)</figcaption>
+  </figure>
+</section>
+
+<!-- ═══════════════════════════════════════════════ 4. MODÉLISATION -->
+<section class="section" id="modelisation">
+  <div class="section-label">Section 04</div>
+  <h2>Construction d'un modèle</h2>
+
+  <p>Un <strong>modèle prédictif</strong> est une règle (ou un algorithme) qui, étant donné les valeurs des variables explicatives d'une nouvelle observation, produit une prédiction. Sa complexité détermine la forme des frontières qu'il peut tracer — une droite, une courbe, ou une surface très accidentée.</p>
+  <p style="font-size:14px;color:var(--muted)">Le choix entre approche paramétrique et non paramétrique dépend de ce qu'on sait (ou suppose) du problème, et des données disponibles.</p>
+
+  <div class="grid-2">
+    <div class="card red">
+      <div class="card-title">Approche paramétrique</div>
+      <p>Forme fonctionnelle <strong>fixée a priori</strong> → ex. f(x) = θ₀ + θ₁x₁ + θ₂x₂</p>
+      <ul style="font-size:13px">
+        <li>Interprétable ; efficace si bien spécifié</li>
+        <li>Ex. : régression logistique, LDA, Naive Bayes</li>
+      </ul>
+      <p style="color:var(--red);font-size:13px;margin-top:6px;"><strong>Quand ?</strong> Besoin d'interprétabilité, relation supposée connue.</p>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Approche non paramétrique</div>
+      <p>Aucune hypothèse sur la forme de f → structure apprise depuis les données.</p>
+      <ul style="font-size:13px">
+        <li>Flexible : capture des relations complexes</li>
+        <li>Ex. : k-NN, arbres de décision, forêts aléatoires</li>
+      </ul>
+      <p style="color:var(--dark);font-size:13px;margin-top:6px;"><strong>Quand ?</strong> Relations complexes, pas d'hypothèse a priori.</p>
+    </div>
+  </div>
+
+  <div class="info-box">Les deux approches peuvent être combinées : SVM à noyau, splines, modèles bayésiens non paramétriques.</div>
+
+  <figure class="img-figure" style="margin-top:1.4rem">
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:4px;">Cas de la régression</p>
+    <img class="img-wide" src="assets/images/model_regression.png" alt="Modèle de régression">
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin:0.6rem 0 4px">Cas de la classification</p>
+    <div class="img-group">
+      <img class="img-third" src="assets/images/model1.png" alt="Modèle de classification 1">
+      <img class="img-third" src="assets/images/model2.png" alt="Modèle de classification 2">
+      <img class="img-third" src="assets/images/model3.png" alt="Modèle de classification 3">
+    </div>
+    <figcaption>La complexité de la frontière est fonction de la complexité du modèle</figcaption>
+  </figure>
+
+  <h3 id="modelisation-criteres">Critères de choix d'un modèle</h3>
+  <div class="grid-2" style="margin-bottom:1.2rem">
+    <div class="card orange">
+      <div class="card-title">Facteurs techniques</div>
+      <ul style="font-size:13px">
+        <li>Adéquation à la complexité du problème</li>
+        <li>Volume de données disponibles</li>
+        <li>Budget et coût de calcul</li>
+        <li>Disponibilité sur la plateforme de développement</li>
+        <li>Possibilité de transfert (modèle pré-entraîné)</li>
+      </ul>
+    </div>
+    <div class="card orange">
+      <div class="card-title">Facteurs métier</div>
+      <ul style="font-size:13px">
+        <li>Exigences d'explicabilité et d'interprétabilité</li>
+        <li>Contraintes éthiques et réglementaires</li>
+        <li>Tolérance aux erreurs (faux positifs vs faux négatifs)</li>
+      </ul>
+      <p style="font-size:12px;color:var(--muted);margin-top:6px">Les techniques les plus performantes (deep learning) nécessitent un <strong>très grand nombre d'observations étiquetées</strong> et sont moins interprétables.</p>
+    </div>
+  </div>
+
+  <h3 id="modelisation-etapes">Étapes générales de construction</h3>
+  <div class="card red" style="padding:1.8rem">
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Préparation des données</strong>Collecte, nettoyage, mise en forme, exploration, gestion des valeurs aberrantes et manquantes.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><strong>Choix des objectifs</strong>Définir l'erreur à minimiser (MSE, taux d'erreur, F1…).</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><strong>Choix du modèle</strong>Linéaire, arbres de décision, réseaux de neurones, selon la complexité du problème.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><strong>Construction et optimisation</strong>Apprentissage des paramètres (ex. descente de gradient).</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><strong>Estimation des performances</strong>Évaluation sur un jeu de test indépendant.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><strong>Sélection du meilleur modèle</strong>Comparaison et choix final.</div></div>
+    </div>
+  </div>
+
+  <h3 id="modelisation-clf">Métriques d'évaluation — Classification</h3>
+  <p style="font-size:14px;color:var(--muted)">La <strong>matrice de confusion</strong> confronte, pour chaque observation, la valeur observée à la valeur prédite. Elle révèle les quatre situations possibles : vrai positif (VP), vrai négatif (VN), faux positif (FP) et faux négatif (FN).</p>
+  <div class="grid-2" style="align-items:start;">
+    <div>
+      <div class="matrix-wrap">
+        <table class="confusion">
+          <thead>
+            <tr>
+              <td class="label"></td>
+              <td class="label"></td>
+              <th colspan="2" class="header-col" style="text-align:center">Prédite</th>
+            </tr>
+            <tr>
+              <td class="label"></td>
+              <td class="label"></td>
+              <th class="header-col">+</th>
+              <th class="header-col">−</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2" style="font-weight:700;color:var(--muted);font-size:12px;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;padding:8px;">Observée</td>
+              <td style="font-weight:700;padding:8px 12px;">+</td>
+              <td class="vp">VP (a)</td>
+              <td class="fn">FN (b)</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;padding:8px 12px;">−</td>
+              <td class="fp">FP (c)</td>
+              <td class="vn">VN (d)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <table style="font-size:13px">
+        <thead><tr><th>Métrique</th><th>Formule</th></tr></thead>
+        <tbody>
+          <tr><td>Accuracy</td><td class="td-formula">(a+d)/n</td></tr>
+          <tr><td>Taux d'erreur</td><td class="td-formula">(b+c)/n</td></tr>
+          <tr><td>Rappel</td><td class="td-formula">a/(a+b)</td></tr>
+          <tr><td>Précision</td><td class="td-formula">a/(a+c)</td></tr>
+          <tr><td>Spécificité</td><td class="td-formula">d/(c+d)</td></tr>
+          <tr><td>F1-score</td><td class="td-formula">2·(P×R)/(P+R)</td></tr>
+        </tbody>
+      </table>
+      <div class="alert" style="font-size:13px">
+        <strong>Faux positifs coûteux</strong> → maximiser la <strong>Précision</strong><br>
+        <strong>Faux négatifs coûteux</strong> → maximiser le <strong>Rappel</strong>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="modelisation-reg">Métriques d'évaluation — Régression</h3>
+  <p style="font-size:14px;color:var(--muted)">En régression, on mesure l'écart entre les valeurs prédites et les valeurs réelles. Le choix de la métrique doit refléter le coût réel des erreurs dans le contexte applicatif.</p>
+  <table>
+    <thead><tr><th>Métrique</th><th>Formule</th><th>Unité</th></tr></thead>
+    <tbody>
+      <tr><td>MAE</td><td class="td-formula">(1/m)·Σ|y⁽ⁱ⁾ − ŷ⁽ⁱ⁾|</td><td>même que y</td></tr>
+      <tr><td>MSE</td><td class="td-formula">(1/m)·Σ(y⁽ⁱ⁾ − ŷ⁽ⁱ⁾)²</td><td>[y]²</td></tr>
+      <tr><td>RMSE</td><td class="td-formula">√MSE</td><td>même que y</td></tr>
+      <tr><td>R²</td><td class="td-formula">1 − Σ(y⁽ⁱ⁾−ŷ⁽ⁱ⁾)² / Σ(y⁽ⁱ⁾−ȳ)²</td><td>sans unité [0,1]</td></tr>
+    </tbody>
+  </table>
+  <div class="info-box" style="font-size:13px">
+    <strong>R² = 1</strong> : prédiction parfaite &nbsp;·&nbsp; <strong>R² = 0</strong> : modèle naïf (prédit la moyenne) &nbsp;·&nbsp; RMSE pénalise plus les grandes erreurs que MAE.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ 5. APPRENTISSAGE -->
+<section class="section" id="apprentissage">
+  <div class="section-label">Section 05</div>
+  <h2>Apprentissage &amp; Validation</h2>
+
+  <div class="info-box">
+    <strong>Définition — Apprentissage :</strong> trouver les paramètres du modèle qui <em>optimisent le critère retenu</em> sur le jeu d'entraînement. Pour un modèle linéaire y = θ₁x + θ₀, cela revient à déterminer les valeurs de θ₀ et θ₁ qui minimisent l'erreur de prédiction.
+  </div>
+
+  <div class="card red">
+    <div class="card-title">Descente de gradient</div>
+    <p>Ajuster itérativement les paramètres θ dans la direction qui <strong>réduit le plus la fonction de coût</strong>.</p>
+    <div class="formula">θⱼ ← θⱼ − η · ∂MSE/∂θⱼ</div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:8px;">
+      <div><span class="tag">η trop petit → convergence lente</span></div>
+      <div><span class="tag">η trop grand → divergence</span></div>
+    </div>
+    <div style="margin-top:1rem">
+      <table style="font-size:13px">
+        <thead><tr><th>Variante</th><th>Gradient calculé sur…</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Batch GD</strong></td><td>Tous les exemples (lent, stable)</td></tr>
+          <tr><td><strong>Stochastique</strong></td><td>1 exemple aléatoire (rapide, bruité)</td></tr>
+          <tr><td><strong>Mini-batch</strong></td><td>Un sous-ensemble b d'exemples</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="anim-block">
+    <div class="anim-title">Animation — Descente de gradient en 2D</div>
+    <div class="anim-controls" style="flex-wrap:wrap;gap:6px">
+      <button class="anim-btn active" id="btn-gd-mode-reg">Régression</button>
+      <button class="anim-btn" id="btn-gd-mode-clf">Classification</button>
+      <span style="width:1px;background:var(--gray2);margin:0 4px;align-self:stretch"></span>
+      <button class="anim-btn active" id="btn-gd-start">▶ Lancer</button>
+      <button class="anim-btn" id="btn-gd-reset">↺ Réinitialiser</button>
+      <div class="slider-row" style="flex:1;min-width:180px">
+        <span>η =</span>
+        <input type="range" id="anim-gd-lr" min="0.005" max="0.12" step="0.005" value="0.05">
+        <span class="slider-val" id="anim-gd-lr-val">0.05</span>
+      </div>
+    </div>
+    <div class="gd-canvases">
+      <canvas class="anim-canvas" id="anim-gd-contour"></canvas>
+      <canvas class="anim-canvas" id="anim-gd-line"></canvas>
+    </div>
+    <p id="anim-gd-caption" style="font-size:12px;color:var(--muted);margin-top:8px">
+      <strong>Gauche :</strong> carte de chaleur de J(θ₀, θ₁) — la trajectoire part d'un point éloigné et converge vers l'optimum ★.<br>
+      <strong>Droite :</strong> la droite de régression s'ajuste à chaque itération ; les segments orange sont les résidus.<br>
+      Essayez différents taux d'apprentissage η.
+    </p>
+  </div>
+
+  <figure class="img-figure" style="margin-top:1rem">
+    <div class="img-group">
+      <img class="img-half" src="assets/images/overfit1.png" alt="Apprentissage — overfit 1">
+      <img class="img-half" src="assets/images/overfit2.png" alt="Apprentissage — overfit 2">
+    </div>
+    <figcaption>Illustration de l'apprentissage : sous-ajustement (gauche) vs sur-ajustement (droite)</figcaption>
+  </figure>
+
+  <div class="alert">
+    <strong>Apprentissage ≠ Généralisation.</strong> Le critère est optimisé sur les données <em>disponibles</em>, mais l'objectif réel est d'obtenir de bonnes performances sur des observations <em>futures</em> et inconnues. Un modèle qui mémorise parfaitement les données d'entraînement peut être inutile en production.
+  </div>
+
+  <figure class="img-figure">
+    <img class="img-wide" src="assets/images/training.png" alt="Apprentissage et généralisation">
+    <figcaption>Apprentissage vs généralisation — performances sur les données d'entraînement et futures</figcaption>
+  </figure>
+
+  <h3 id="apprentissage-partition">Partitionnement des données</h3>
+  <p style="font-size:14px;color:var(--muted)">Pour évaluer honnêtement un modèle, les données sont divisées en partitions aux rôles distincts. Il est crucial de ne jamais utiliser le jeu de test pour prendre des décisions de modélisation.</p>
+  <div class="train-bar">
+    <div class="bar-train">Train (70%)</div>
+    <div class="bar-val">Val</div>
+    <div class="bar-test">Test</div>
+  </div>
+  <table style="font-size:13px;margin-top:0.5rem">
+    <thead><tr><th>Partition</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--red)">Train</strong></td><td>Optimiser les paramètres du modèle</td></tr>
+      <tr><td><strong>Validation</strong></td><td>Choisir entre plusieurs modèles (hyperparamètres)</td></tr>
+      <tr><td><strong>Test</strong></td><td>Estimer la performance de généralisation</td></tr>
+    </tbody>
+  </table>
+  <div class="alert" style="font-size:13px">
+    <strong>Règle d'or :</strong> le jeu de test ne doit <em>jamais</em> influencer les décisions de modélisation.
+  </div>
+
+  <h3 id="apprentissage-cv">Validation croisée (k-fold, k=5)</h3>
+  <p style="font-size:14px;color:var(--muted)">Un seul découpage train/test peut être instable selon le tirage aléatoire. La <strong>validation croisée</strong> répète l'évaluation sur k partitions différentes pour obtenir une estimation plus robuste et utiliser au maximum les données disponibles.</p>
+  <div class="cv-grid">
+    <div class="cv-row">
+      <div class="cv-cell cv-test">Test</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+    </div>
+    <div class="cv-row">
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-test">Test</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+    </div>
+    <div class="cv-row">
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-test">Test</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+    </div>
+    <div class="cv-row">
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-test">Test</div>
+      <div class="cv-cell cv-train">Train</div>
+    </div>
+    <div class="cv-row">
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-train">Train</div>
+      <div class="cv-cell cv-test">Test</div>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--muted)">Score final = <strong>moyenne</strong> des k scores. Avantage : utilise mieux les données disponibles. Typiquement k=5 ou k=10.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════ 6. BIAIS-VARIANCE -->
+<section class="section" id="evaluation">
+  <div class="section-label">Section 06</div>
+  <h2>Biais, Variance &amp; Régularisation</h2>
+
+  <p>Après l'apprentissage, il faut diagnostiquer le comportement du modèle. L'erreur de généralisation se décompose en trois termes : le <strong>biais</strong> (erreur systématique due à un modèle trop simple), la <strong>variance</strong> (sensibilité aux fluctuations des données d'entraînement) et un <strong>bruit irréductible</strong> propre aux données.</p>
+
+  <div class="alert" style="text-align:center;font-size:15px">
+    <strong>Erreur totale = Biais² + Variance + Bruit irréductible</strong>
+  </div>
+
+  <div class="bv-grid">
+    <div class="bv-card under">
+      <h4>Sous-apprentissage</h4>
+      <div class="bv-label">Fort biais</div>
+      <ul>
+        <li>Modèle trop simple</li>
+        <li>Erreur élevée en train <em>et</em> en test</li>
+        <li>→ Augmenter la complexité</li>
+        <li>→ Réduire la régularisation</li>
+      </ul>
+    </div>
+    <div class="bv-card good">
+      <h4>Bon compromis</h4>
+      <div class="bv-label">Biais / variance équilibré</div>
+      <ul>
+        <li>Modèle optimal</li>
+        <li>Bonne erreur en train et en test</li>
+        <li>→ Objectif à atteindre</li>
+      </ul>
+    </div>
+    <div class="bv-card over">
+      <h4>Sur-apprentissage</h4>
+      <div class="bv-label">Forte variance</div>
+      <ul>
+        <li>Modèle trop complexe</li>
+        <li>Bonne erreur en train, mauvaise en test</li>
+        <li>→ Plus de données</li>
+        <li>→ Régularisation</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="img-figure">
+    <img class="img-wide" src="assets/images/biais_variance.png" alt="Décomposition biais-variance">
+    <figcaption>Décomposition biais-variance — source : cours Pascal Scalart 2017</figcaption>
+  </figure>
+
+  <h3 id="evaluation-regularisation">Régularisation</h3>
+  <p style="font-size:14px;color:var(--muted)">Face au sur-apprentissage, la <strong>régularisation</strong> consiste à ajouter à la fonction de coût une pénalité qui décourage les coefficients trop grands. On obtient ainsi un modèle plus simple qui généralise mieux, au prix d'un léger biais accepté.</p>
+  <div class="grid-2">
+    <div class="card red">
+      <div class="card-title">Ridge (L2)</div>
+      <div class="formula">J(θ) = MSE + α · Σθⱼ²</div>
+      <p style="font-size:13px">Pénalise les grands coefficients ; réduit la variance sans les annuler.</p>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Lasso (L1)</div>
+      <div class="formula">J(θ) = MSE + α · Σ|θⱼ|</div>
+      <p style="font-size:13px">Pénalise les coefficients ; peut les mettre exactement à zéro (sélection de variables).</p>
+    </div>
+  </div>
+  <div class="info-box" style="font-size:13px">
+    α est un <strong>hyperparamètre</strong> qui contrôle la force de la pénalisation — à choisir par validation croisée. <strong>Ridge</strong> est préféré quand toutes les variables sont potentiellement utiles ; <strong>Lasso</strong> est utile quand on souhaite une sélection automatique de variables (coefficients mis à zéro).
+  </div>
+
+  <div class="alert" style="margin-top:1.5rem">
+    <strong>En pratique :</strong> un bon modèle prédictif résulte d'un équilibre entre complexité suffisante pour capturer les patterns utiles, et parcimonie pour ne pas mémoriser le bruit. La validation croisée est l'outil standard pour trouver cet équilibre.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ SECTION 07 -->
+<section class="section" id="references">
+  <div class="section-label">Section 07</div>
+  <h2>Références &amp; Ressources</h2>
+
+  <p>Une sélection de ressources complémentaires pour approfondir les notions abordées dans ce cours — tutoriels francophones, ouvrages de référence internationaux et outils pratiques.</p>
+
+  <!-- Cours & tutoriels -->
+  <h3 id="references-cours">Cours &amp; tutoriels</h3>
+
+  <div class="grid-2" style="margin-bottom:1.4rem">
+
+    <div class="card dark">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">R. Rakotomalala · Université Lumière Lyon 2</div>
+          <div class="ref-title">Tutoriels Data Mining &amp; Apprentissage Automatique</div>
+          <p class="ref-desc">Cours complets et gratuits en français sur la modélisation prédictive, les algorithmes de classification et de régression, l'évaluation des modèles et la sélection de variables. Référence incontournable pour les praticiens francophones.</p>
+        </div>
+        <span class="ref-tag ref-tag--cours">Cours</span>
+      </div>
+      <a class="ref-link" href="http://eric.univ-lyon2.fr/ricco/" target="_blank" rel="noopener">Accéder au site →</a>
+    </div>
+
+    <div class="card dark">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">A. Ng · Stanford / Coursera</div>
+          <div class="ref-title">Machine Learning Specialization</div>
+          <p class="ref-desc">Spécialisation en 3 cours couvrant la régression, la classification, les réseaux de neurones et l'apprentissage non supervisé. Accessible aux débutants, exercices pratiques en Python/NumPy.</p>
+        </div>
+        <span class="ref-tag ref-tag--mooc">MOOC</span>
+      </div>
+      <a class="ref-link" href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank" rel="noopener">Accéder au cours →</a>
+    </div>
+
+    <div class="card dark">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">J. Howard &amp; S. Gugger · fast.ai</div>
+          <div class="ref-title">Practical Deep Learning for Coders</div>
+          <p class="ref-desc">Approche pratique du deep learning et du machine learning : apprentissage par la pratique avec des projets réels. Couvre tabular data, vision et NLP, en PyTorch.</p>
+        </div>
+        <span class="ref-tag ref-tag--mooc">MOOC</span>
+      </div>
+      <a class="ref-link" href="https://www.fast.ai/" target="_blank" rel="noopener">Accéder au cours →</a>
+    </div>
+
+    <div class="card dark">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">Google Developers</div>
+          <div class="ref-title">Machine Learning Crash Course</div>
+          <p class="ref-desc">Introduction rapide aux concepts fondamentaux du ML — descente de gradient, régularisation, évaluation. Inclus des exercices interactifs en TensorFlow Playground.</p>
+        </div>
+        <span class="ref-tag ref-tag--cours">Cours</span>
+      </div>
+      <a class="ref-link" href="https://developers.google.com/machine-learning/crash-course" target="_blank" rel="noopener">Accéder au cours →</a>
+    </div>
+
+  </div>
+
+  <!-- Ouvrages -->
+  <h3 id="references-livres">Ouvrages de référence</h3>
+
+  <div class="grid-2" style="margin-bottom:1.4rem">
+
+    <div class="card orange">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">James · Witten · Hastie · Tibshirani (2023)</div>
+          <div class="ref-title">An Introduction to Statistical Learning</div>
+          <p class="ref-desc">L'ouvrage de référence pour une introduction rigoureuse et accessible au machine learning statistique. PDF librement téléchargeable. Couvre régression, classification, resampling, sélection de modèles, SVM, arbres et méthodes ensemblistes.</p>
+        </div>
+        <span class="ref-tag ref-tag--livre">Livre</span>
+      </div>
+      <a class="ref-link" href="https://www.statlearning.com/" target="_blank" rel="noopener">Télécharger le PDF →</a>
+    </div>
+
+    <div class="card orange">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">Hastie · Tibshirani · Friedman (2009)</div>
+          <div class="ref-title">The Elements of Statistical Learning</div>
+          <p class="ref-desc">Version avancée d'ISL, couvrant en profondeur les méthodes d'ensemble (bagging, boosting, random forests), les réseaux de neurones, le SVM, les graphical models. PDF librement téléchargeable.</p>
+        </div>
+        <span class="ref-tag ref-tag--livre">Livre</span>
+      </div>
+      <a class="ref-link" href="https://hastie.su.domains/ElemStatLearn/" target="_blank" rel="noopener">Télécharger le PDF →</a>
+    </div>
+
+    <div class="card orange">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">C. M. Bishop (2006)</div>
+          <div class="ref-title">Pattern Recognition and Machine Learning</div>
+          <p class="ref-desc">Traitement probabiliste et bayésien du ML : modèles graphiques, EM, modèles de mélanges, réseaux de neurones, SVM, méthodes à noyaux. Ouvrage de référence pour les fondements mathématiques.</p>
+        </div>
+        <span class="ref-tag ref-tag--livre">Livre</span>
+      </div>
+      <a class="ref-link" href="https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/" target="_blank" rel="noopener">Accéder au livre →</a>
+    </div>
+
+    <div class="card orange">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">K. P. Murphy (2022)</div>
+          <div class="ref-title">Probabilistic Machine Learning</div>
+          <p class="ref-desc">Deux volumes couvrant l'ensemble des méthodes probabilistes modernes — apprentissage profond inclus. Chapitres disponibles gratuitement en ligne, avec code Python/JAX.</p>
+        </div>
+        <span class="ref-tag ref-tag--livre">Livre</span>
+      </div>
+      <a class="ref-link" href="https://probml.github.io/pml-book/" target="_blank" rel="noopener">Accéder au livre →</a>
+    </div>
+
+  </div>
+
+  <!-- Outils -->
+  <h3 id="references-outils">Outils &amp; librairies Python</h3>
+
+  <div class="grid-3">
+
+    <div class="card green">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">scikit-learn</div>
+          <div class="ref-title">Machine Learning en Python</div>
+          <p class="ref-desc">La librairie de référence pour le ML classique : classification, régression, clustering, réduction de dimension, pipelines et validation. Documentation et exemples exhaustifs.</p>
+        </div>
+        <span class="ref-tag ref-tag--outil">Outil</span>
+      </div>
+      <a class="ref-link" href="https://scikit-learn.org/stable/" target="_blank" rel="noopener">Documentation →</a>
+    </div>
+
+    <div class="card green">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">pandas</div>
+          <div class="ref-title">Manipulation de données tabulaires</div>
+          <p class="ref-desc">Chargement, nettoyage, transformation et exploration des données structurées. Indispensable pour toute la phase de préparation des données.</p>
+        </div>
+        <span class="ref-tag ref-tag--outil">Outil</span>
+      </div>
+      <a class="ref-link" href="https://pandas.pydata.org/docs/" target="_blank" rel="noopener">Documentation →</a>
+    </div>
+
+    <div class="card green">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem">
+        <div>
+          <div class="ref-meta">matplotlib / seaborn</div>
+          <div class="ref-title">Visualisation de données</div>
+          <p class="ref-desc">Matplotlib pour le contrôle bas niveau des graphiques, seaborn pour des visualisations statistiques élégantes en quelques lignes. Essentiels pour l'analyse exploratoire.</p>
+        </div>
+        <span class="ref-tag ref-tag--outil">Outil</span>
+      </div>
+      <a class="ref-link" href="https://seaborn.pydata.org/" target="_blank" rel="noopener">Documentation →</a>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <strong>NDAO Mouhamadou Lamine</strong> — Introduction à la Modélisation Prédictive<br>
+  <span style="margin-top:4px;display:inline-block">CNAM · EPN05 · Laboratoire CEDRIC &nbsp;·&nbsp; mlndao@outlook.com</span>
+</footer>
+
+<script src="assets/js/animations.js"></script>
+</body>
+</html>

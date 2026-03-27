@@ -1,0 +1,42 @@
+# ── macOS ─────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+
+# ── Windows ───────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ── Éditeurs & IDEs ───────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ── Claude Code (paramètres locaux) ───────────
+.claude/
+
+# ── Node.js (si ajout d'outils de build) ──────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ── Divers ────────────────────────────────────
+*.log
+*.tmp
+*.bak
+*.orig
+.env
+.env.local
