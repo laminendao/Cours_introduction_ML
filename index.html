@@ -55,6 +55,7 @@
       </button>
       <ul class="sidebar-sub">
         <li><a class="sidebar-sublink" href="#types-nonsupervise">Méthodes non supervisées</a></li>
+        <li><a class="sidebar-sublink" href="#types-renforcement">Apprentissage par renforcement</a></li>
       </ul>
     </li>
 
@@ -81,6 +82,7 @@
         <li><a class="sidebar-sublink" href="#modelisation-criteres">Critères de choix</a></li>
         <li><a class="sidebar-sublink" href="#modelisation-etapes">Étapes générales</a></li>
         <li><a class="sidebar-sublink" href="#modelisation-clf">Métriques — Classification</a></li>
+        <li><a class="sidebar-sublink" href="#modelisation-roc">Courbe ROC &amp; AUC</a></li>
         <li><a class="sidebar-sublink" href="#modelisation-reg">Métriques — Régression</a></li>
       </ul>
     </li>
@@ -94,6 +96,7 @@
       <ul class="sidebar-sub">
         <li><a class="sidebar-sublink" href="#apprentissage-partition">Partitionnement</a></li>
         <li><a class="sidebar-sublink" href="#apprentissage-cv">Validation croisée</a></li>
+        <li><a class="sidebar-sublink" href="#apprentissage-loocv">LOOCV &amp; Bootstrap</a></li>
       </ul>
     </li>
 
@@ -105,6 +108,7 @@
       </button>
       <ul class="sidebar-sub">
         <li><a class="sidebar-sublink" href="#evaluation-regularisation">Régularisation</a></li>
+        <li><a class="sidebar-sublink" href="#evaluation-courbes">Courbes d'apprentissage</a></li>
       </ul>
     </li>
 
@@ -140,6 +144,7 @@
     <a class="toc-section-link" href="#types">02 · Types de problèmes</a>
     <ul class="toc-sub">
       <li><a class="toc-sublink" href="#types-nonsupervise">Méthodes non supervisées</a></li>
+      <li><a class="toc-sublink" href="#types-renforcement">Par renforcement</a></li>
     </ul>
   </div>
 
@@ -158,6 +163,7 @@
       <li><a class="toc-sublink" href="#modelisation-criteres">Critères de choix</a></li>
       <li><a class="toc-sublink" href="#modelisation-etapes">Étapes générales</a></li>
       <li><a class="toc-sublink" href="#modelisation-clf">Métriques — Classification</a></li>
+      <li><a class="toc-sublink" href="#modelisation-roc">ROC &amp; AUC</a></li>
       <li><a class="toc-sublink" href="#modelisation-reg">Métriques — Régression</a></li>
     </ul>
   </div>
@@ -167,6 +173,7 @@
     <ul class="toc-sub">
       <li><a class="toc-sublink" href="#apprentissage-partition">Partitionnement</a></li>
       <li><a class="toc-sublink" href="#apprentissage-cv">Validation croisée</a></li>
+      <li><a class="toc-sublink" href="#apprentissage-loocv">LOOCV &amp; Bootstrap</a></li>
     </ul>
   </div>
 
@@ -174,6 +181,7 @@
     <a class="toc-section-link" href="#evaluation">06 · Biais &amp; Variance</a>
     <ul class="toc-sub">
       <li><a class="toc-sublink" href="#evaluation-regularisation">Régularisation</a></li>
+      <li><a class="toc-sublink" href="#evaluation-courbes">Courbes d'apprentissage</a></li>
     </ul>
   </div>
 
@@ -394,6 +402,42 @@
 
   <div class="alert" style="margin-top:1.2rem">
     <strong>Les méthodes sont le plus souvent complémentaires !</strong> Description, explication, prédiction et association s'articulent dans une démarche d'analyse globale.
+  </div>
+
+  <h3 id="types-renforcement">Apprentissage par renforcement</h3>
+  <p style="font-size:14px;color:var(--muted)">Troisième grand paradigme, distinct du supervisé et du non supervisé : un <strong>agent</strong> apprend une <strong>politique de décision optimale</strong> en interagissant avec un environnement, sans jeu de données étiqueté. Il reçoit un signal de <em>récompense</em> à chaque action et cherche à maximiser la récompense cumulée à long terme.</p>
+
+  <div class="grid-2">
+    <div class="card green">
+      <div class="card-title">Composants clés</div>
+      <ul style="font-size:13px">
+        <li><strong>Agent</strong> — entité qui prend des décisions</li>
+        <li><strong>Environnement</strong> — système avec lequel l'agent interagit</li>
+        <li><strong>État</strong> s — description de la situation courante</li>
+        <li><strong>Action</strong> a — choix effectué par l'agent</li>
+        <li><strong>Récompense</strong> r — signal de feedback (scalaire)</li>
+        <li><strong>Politique</strong> π — règle de décision à apprendre</li>
+      </ul>
+      <div class="formula" style="font-size:12px;margin-top:.6rem">π* = argmax<sub>π</sub> 𝔼[Σ γᵗ·rₜ]</div>
+      <p style="font-size:11px;color:var(--muted);margin-top:.3rem">γ ∈ [0,1] est le facteur d'actualisation (discount factor)</p>
+    </div>
+    <div class="card green">
+      <div class="card-title">Applications</div>
+      <ul style="font-size:13px">
+        <li><strong>Jeux</strong> : AlphaGo (Go), AlphaZero (échecs), agents Atari</li>
+        <li><strong>Robotique</strong> : locomotion, manipulation d'objets</li>
+        <li><strong>Finance</strong> : trading algorithmique, gestion de portefeuille</li>
+        <li><strong>Recommandation</strong> : optimisation de l'engagement utilisateur</li>
+        <li><strong>LLMs</strong> : RLHF — ajustement fin des assistants IA (ChatGPT, Claude)</li>
+      </ul>
+      <div class="alert" style="font-size:12px;margin-top:.8rem">
+        <strong>RLHF</strong> (Reinforcement Learning from Human Feedback) est la technique centrale utilisée pour aligner les grands modèles de langage sur les préférences humaines.
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box" style="font-size:13px;margin-top:.8rem">
+    <strong>Différence clé avec le supervisé :</strong> il n'y a pas d'étiquette correcte fournie à l'avance. Le signal d'apprentissage est un scalaire de récompense, souvent bruité et retardé (crédit assignment problem). Cela rend le problème fondamentalement plus difficile.
   </div>
 </section>
 
@@ -696,6 +740,45 @@
     </div>
   </div>
 
+  <h3 id="modelisation-roc">Courbe ROC &amp; AUC</h3>
+  <p style="font-size:14px;color:var(--muted)">La <strong>courbe ROC</strong> (Receiver Operating Characteristic) trace le <em>Rappel</em> (sensibilité, axe Y) en fonction du <em>Taux de Faux Positifs</em> (1 − spécificité, axe X) pour <strong>tous les seuils de décision possibles</strong>. Elle synthétise la capacité discriminante d'un modèle en un seul graphe, indépendamment du seuil choisi et robuste aux classes déséquilibrées.</p>
+
+  <div class="grid-2" style="align-items:start">
+    <div>
+      <table style="font-size:13px">
+        <thead><tr><th>Axe ROC</th><th>Formule</th><th>Alias</th></tr></thead>
+        <tbody>
+          <tr><td><strong>X — TFP</strong></td><td class="td-formula">FP / (FP+VN)</td><td>1 − Spécificité</td></tr>
+          <tr><td><strong>Y — Rappel</strong></td><td class="td-formula">VP / (VP+FN)</td><td>Sensibilité, TPR</td></tr>
+        </tbody>
+      </table>
+      <table style="font-size:13px;margin-top:.6rem">
+        <thead><tr><th>AUC</th><th>Interprétation</th></tr></thead>
+        <tbody>
+          <tr><td>= 0.5</td><td>Classifieur aléatoire (diagonale)</td></tr>
+          <tr><td>∈ [0.7, 0.9]</td><td>Bon discriminant</td></tr>
+          <tr><td>&gt; 0.9</td><td>Excellent discriminant</td></tr>
+          <tr><td>= 1.0</td><td>Classifieur parfait (coin supérieur gauche)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="info-box" style="font-size:13px">
+        <strong>Pourquoi préférer l'AUC à l'Accuracy ?</strong>
+        <ul style="margin-top:5px">
+          <li>Indépendant du seuil de décision — synthèse globale</li>
+          <li>Robuste aux <strong>classes déséquilibrées</strong> (contrairement à l'accuracy qui peut être trompeuse)</li>
+          <li>Interprétation probabiliste : P(score(positif) &gt; score(négatif))</li>
+          <li>Permet de comparer plusieurs modèles sur un seul scalaire</li>
+        </ul>
+      </div>
+      <div class="card dark" style="margin-top:.6rem;padding:.9rem 1.2rem">
+        <div class="card-title">Variante — AUC-PR</div>
+        <p style="font-size:12.5px;margin:0">Pour des données très déséquilibrées, la <strong>courbe Précision–Rappel</strong> (PR curve) est plus informative que la ROC car elle se focalise sur la classe positive rare.</p>
+      </div>
+    </div>
+  </div>
+
   <h3 id="modelisation-reg">Métriques d'évaluation — Régression</h3>
   <p style="font-size:14px;color:var(--muted)">En régression, on mesure l'écart entre les valeurs prédites et les valeurs réelles. Le choix de la métrique doit refléter le coût réel des erreurs dans le contexte applicatif.</p>
   <table>
@@ -842,6 +925,40 @@
     </div>
   </div>
   <p style="font-size:13px;color:var(--muted)">Score final = <strong>moyenne</strong> des k scores. Avantage : utilise mieux les données disponibles. Typiquement k=5 ou k=10.</p>
+
+  <h3 id="apprentissage-loocv">LOOCV &amp; Bootstrap</h3>
+  <p style="font-size:14px;color:var(--muted)">Deux variantes permettent d'aller plus loin que la simple k-fold, selon les contraintes de taille des données et l'objectif de l'évaluation.</p>
+
+  <div class="grid-2">
+    <div class="card dark">
+      <div class="card-title">LOOCV — Leave-One-Out Cross-Validation</div>
+      <p style="font-size:13px">Cas extrême de la k-fold où <strong>k = n</strong> (nombre d'observations). À chaque itération, un seul point est mis de côté comme test ; le modèle est entraîné sur les n−1 restants.</p>
+      <table style="font-size:12px;margin-top:.6rem">
+        <thead><tr><th>Propriété</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Biais</td><td>Très faible — entraîné sur presque toutes les données</td></tr>
+          <tr><td>Variance</td><td>Élevée — n modèles très corrélés entre eux</td></tr>
+          <tr><td>Coût</td><td>n entraînements → coûteux pour n grand</td></tr>
+          <tr><td>Usage</td><td>Recommandé quand n est petit (&lt; 50–100)</td></tr>
+        </tbody>
+      </table>
+      <div class="formula" style="font-size:12px;margin-top:.6rem">CV<sub>LOOCV</sub> = (1/n)·Σᵢ MSE(yᵢ, ŷᵢ⁻ⁱ)</div>
+    </div>
+    <div class="card dark">
+      <div class="card-title">Bootstrap</div>
+      <p style="font-size:13px">Technique de rééchantillonnage avec remise. On tire B échantillons bootstrap de taille n parmi les données d'origine, puis on évalue le modèle sur les observations <em>non tirées</em> (environ 36.8% du jeu orignal — échantillon <em>out-of-bag</em>).</p>
+      <ul style="font-size:12.5px;margin-top:.5rem">
+        <li>Estimer la variance et les intervalles de confiance d'un estimateur</li>
+        <li>Moins biaisé que la k-fold pour l'estimation de l'erreur de généralisation</li>
+        <li>Base des <strong>forêts aléatoires</strong> (bagging)</li>
+      </ul>
+      <div class="formula" style="font-size:12px;margin-top:.6rem">P(non tiré) = (1 − 1/n)ⁿ → e⁻¹ ≈ 0.368</div>
+    </div>
+  </div>
+
+  <div class="info-box" style="font-size:13px;margin-top:.8rem">
+    <strong>Règle pratique (ISL, ch.5) :</strong> pour un problème standard avec n raisonnable, la <strong>k-fold avec k=5 ou k=10</strong> offre le meilleur compromis biais/variance/coût computationnel. LOOCV si n ≤ 50 ; Bootstrap pour estimer l'incertitude sur un paramètre.
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ 6. BIAIS-VARIANCE -->
@@ -909,6 +1026,56 @@
   <div class="info-box" style="font-size:13px">
     α est un <strong>hyperparamètre</strong> qui contrôle la force de la pénalisation — à choisir par validation croisée. <strong>Ridge</strong> est préféré quand toutes les variables sont potentiellement utiles ; <strong>Lasso</strong> est utile quand on souhaite une sélection automatique de variables (coefficients mis à zéro).
   </div>
+
+  <div class="card orange" style="margin-top:1rem">
+    <div class="card-title">Elastic Net — Combinaison L1 + L2</div>
+    <div class="formula">J(θ) = MSE + α · [ ρ · Σ|θⱼ| + (1−ρ) · Σθⱼ² ]</div>
+    <p style="font-size:13px;margin-top:.6rem">Proposé par Zou &amp; Hastie (2005), Elastic Net combine les deux pénalités. Le paramètre <strong>ρ ∈ [0,1]</strong> règle le mélange : ρ=1 → Lasso pur ; ρ=0 → Ridge pur.</p>
+    <div class="grid-2" style="margin-top:.6rem;gap:.6rem">
+      <div style="font-size:12.5px"><strong>Avantage vs Lasso pur :</strong> stable quand les variables sont <strong>fortement corrélées</strong> entre elles — Lasso en sélectionne une arbitrairement, Elastic Net les garde ensemble.</div>
+      <div style="font-size:12.5px"><strong>En pratique :</strong> α et ρ sont tous deux des hyperparamètres à choisir par validation croisée. Disponible directement dans scikit-learn (<code>ElasticNet</code>).</div>
+    </div>
+  </div>
+
+  <h3 id="evaluation-courbes">Courbes d'apprentissage</h3>
+  <p style="font-size:14px;color:var(--muted)">Une <strong>courbe d'apprentissage</strong> trace l'erreur d'entraînement et de validation en fonction de la taille m du jeu d'entraînement. C'est l'outil de diagnostic standard (popularisé par Andrew Ng) pour distinguer un problème de biais d'un problème de variance avant de décider quelle action corrective prendre.</p>
+
+  <div class="grid-2" style="align-items:start">
+    <div class="card orange">
+      <div class="card-title" style="color:var(--orange)">Fort biais — Sous-apprentissage</div>
+      <ul style="font-size:13px">
+        <li>L'erreur d'entraînement <strong>monte</strong> avec m puis se stabilise à un niveau élevé</li>
+        <li>L'erreur de validation <strong>descend</strong> mais converge vers le même plateau élevé</li>
+        <li>Les deux courbes se rejoignent — petit écart entre elles</li>
+      </ul>
+      <div class="alert" style="font-size:12px;margin-top:.7rem">
+        <strong>Ajouter des données n'aidera pas.</strong><br>
+        Remèdes : modèle plus complexe, nouvelles features, moins de régularisation.
+      </div>
+    </div>
+    <div class="card red">
+      <div class="card-title">Forte variance — Sur-apprentissage</div>
+      <ul style="font-size:13px">
+        <li>L'erreur d'entraînement reste <strong>faible</strong></li>
+        <li>L'erreur de validation reste <strong>élevée</strong></li>
+        <li><strong>Grand écart persistant</strong> entre les deux courbes</li>
+      </ul>
+      <div class="alert" style="font-size:12px;margin-top:.7rem">
+        <strong>Plus de données peut réduire l'écart.</strong><br>
+        Remèdes : régularisation (Ridge/Lasso), modèle moins complexe, dropout, plus de données.
+      </div>
+    </div>
+  </div>
+
+  <table style="font-size:13px;margin-top:1rem">
+    <thead><tr><th>Symptôme observé</th><th>Diagnostic</th><th>Action prioritaire</th></tr></thead>
+    <tbody>
+      <tr><td>Erreur train élevée</td><td>Fort biais</td><td>Augmenter complexité, ajouter features</td></tr>
+      <tr><td>Erreur train faible, test élevée</td><td>Forte variance</td><td>Régularisation, plus de données</td></tr>
+      <tr><td>Erreur train &amp; test faibles</td><td>Bon compromis</td><td>Déploiement ✓</td></tr>
+      <tr><td>Erreur train &amp; test qui divergent</td><td>η trop grand (GD)</td><td>Réduire le taux d'apprentissage</td></tr>
+    </tbody>
+  </table>
 
   <div class="alert" style="margin-top:1.5rem">
     <strong>En pratique :</strong> un bon modèle prédictif résulte d'un équilibre entre complexité suffisante pour capturer les patterns utiles, et parcimonie pour ne pas mémoriser le bruit. La validation croisée est l'outil standard pour trouver cet équilibre.
